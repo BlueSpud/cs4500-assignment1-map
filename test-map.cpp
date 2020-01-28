@@ -1,6 +1,5 @@
 #pragma once;
 #include <iostream>
-#include <string.h>
 #include "map.h"
 #include "string.h"
 
@@ -41,7 +40,7 @@ void test2() {
     t_true(h1->get_size() == 1);
     h1->put(key_1, val_2);
     t_true(h1->get_size() == 1);
-    t_false(val_1 -> equals(h1->get(key_1)))
+    t_false(val_1 -> equals(h1->get(key_1)));
     OK("2");
 }
 
@@ -67,7 +66,7 @@ void test3() {
  */
 void test4() {
     Map* h1 = new Map();
-    t_true(h1 -> get(new String("1")) == nullptr)
+    t_true(h1 -> get(new String("1")) == nullptr);
     OK("3");
 }
 
@@ -137,8 +136,8 @@ void test7() {
 
 
 /**
- * test cases for values() function
- * testing on keys() function that return all values that exist in the Map
+ * test cases values() function
+ * testing on values() function that return all values that exist in the Map
  */
 void test8() {
     Map* h1 = new Map();
@@ -153,9 +152,9 @@ void test8() {
     h1->put(key_3, val_3);
     Object** values_array;
     values_array = h1->values();
-    t_true(val_1 -> equals(keys_array[0]));
-    t_true(val_2 -> equals(keys_array[1]));
-    t_true(val_3 -> equals(keys_array[2]));
+    t_true(val_1 -> equals(values_array[0]));
+    t_true(val_2 -> equals(values_array[1]));
+    t_true(val_3 -> equals(values_array[2]));
     OK("9");
 }
 

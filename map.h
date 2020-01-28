@@ -30,16 +30,6 @@ public:
     int get_size();
 
     /**
-     * Returns the capacity of the map.
-     */
-    int get_capacity();
-
-    /**
-     * increase or decrease the capacity of the map
-     */
-    void resize();
-
-    /**
      * Put the given key value pair into the map
      * If the key is already associated with a value, the new value should overwrite the previous one
      * @return  val
