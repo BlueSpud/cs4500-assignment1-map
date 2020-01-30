@@ -45,6 +45,7 @@ public:
     /** The array that stores all of the buckets */
     ArrayObject _array;
 
+    /** The collection of entries in the map */
     ArrayObject _entrySet;
 
     /**
