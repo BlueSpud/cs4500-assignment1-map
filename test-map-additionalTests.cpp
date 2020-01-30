@@ -5,6 +5,11 @@
 
 static const int _stressTestVal = 10000;
 
+void FAIL() {   exit(1);    }
+void OK(const char* m) { std:: cout << "All test cases in test " << m << " are passed" << std:: endl;}
+void t_true(bool p) { if (!p) FAIL(); }
+void t_false(bool p) { if (p) FAIL(); }
+
 void mapStressTest() {
     Map* h1 = new Map();
 
