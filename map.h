@@ -2,10 +2,8 @@
 // Created by Jiawen Liu on 1/24/20.
 //
 
-#ifndef PART2_Map_H
-#define PART2_Map_H
-
-#endif //PART2_Map_H
+#ifndef MAP_H
+#define MAP_H
 
 #pragma once;
 #include "../cs4500-assignment1-array/object.h"
@@ -47,7 +45,6 @@ public:
 
     /**
      * Default constructor that constructs an empty Map with
-     * the default initial capacity 16
     */
     Map() {
         for (int i = 0; i < 16; i++) {
@@ -71,21 +68,11 @@ public:
     int get_size() { return _entrySet.size(); }
 
     /**
-     * Returns the capacity of the map.
-     */
-    int get_capacity() { return _array.size(); }
-
-    /**
-     * increase or decrease the capacity of the map
-     */
-    void resize() {}
-
-    /**
      * Put the given key value pair into the map
      * If the key is already associated with a value, the new value should overwrite the previous one
      * @return  val
      */
-    Object* put(Object* key, Object* val) {
+    void put(Object* key, Object* val) {
         _resizeIfNeeded();
 
         Entry* entry = _getEntry(key);
@@ -194,17 +181,10 @@ public:
         return nullptr;
     }
 
-
-    /**
-     * @return  a list of the keys contained in this map
-     */
-    Object** key_set() { return nullptr; }
-
-
     /**
      * @return  a list of values contained in this map
      */
-    Object** values() { return nullptr; }
+    Object** values();
 
     size_t hash() {
         size_t hash = 0;
@@ -218,3 +198,4 @@ public:
         return false;
     }
 };
+#endif

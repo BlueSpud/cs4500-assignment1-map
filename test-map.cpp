@@ -1,8 +1,7 @@
 #pragma once;
-#include <iostream>
-#include <string.h>
 #include "map.h"
 #include "string.h"
+#include <iostream>
 
 
 void FAIL() {   exit(1);    }
@@ -12,8 +11,8 @@ void t_false(bool p) { if (p) FAIL(); }
 
 
 /**
- * test cases for put() and get_size() methods
- * put an object(in this case we used string) will increase the size of Map
+ * test cases for put()
+ * program won't error when objects are put into a map
  */
 void test1() {
     Map* h1 = new Map();
@@ -22,9 +21,7 @@ void test1() {
     String * key_2 = new String("World");
     String * val_2 = new String("2");
     h1->put(key_1, val_1);
-    t_true(h1->get_size() == 1);
     h1->put(key_2, val_2);
-    t_true(h1->get_size() == 2);
     OK("1");
 }
 
@@ -41,7 +38,7 @@ void test2() {
     t_true(h1->get_size() == 1);
     h1->put(key_1, val_2);
     t_true(h1->get_size() == 1);
-    t_false(val_1 -> equals(h1->get(key_1)))
+    t_false(val_1 -> equals(h1->get(key_1)));
     OK("2");
 }
 
@@ -67,7 +64,7 @@ void test3() {
  */
 void test4() {
     Map* h1 = new Map();
-    t_true(h1 -> get(new String("1")) == nullptr)
+    t_true(h1 -> get(new String("1")) == nullptr);
     OK("3");
 }
 
@@ -113,8 +110,8 @@ void test6() {
 
 
 /**
- * test cases for key_set() function
- * testing on key_set() function which should return all keys in the Map
+ * test cases values() function
+ * testing on values() function that return all values that exist in the Map
  */
 void test7() {
     Map* h1 = new Map();
@@ -127,35 +124,11 @@ void test7() {
     h1->put(key_1, val_1);
     h1->put(key_2, val_2);
     h1->put(key_3, val_3);
-    Object** keys_array;
-    keys_array =  h1->key_set();
-    t_true(key_1 -> equals(keys_array[0]));
-    t_true(key_2 -> equals(keys_array[1]));
-    t_true(key_3 -> equals(keys_array[2]));
-    OK("8");
-}
-
-
-/**
- * test cases for values() function
- * testing on keys() function that return all values that exist in the Map
- */
-void test8() {
-    Map* h1 = new Map();
-    String * key_1 = new String("A");
-    String * val_1 = new String("1");
-    String * key_2 = new String("B");
-    String * val_2 = new String("2");
-    String * key_3 = new String("C");
-    String * val_3 = new String("3");
-    h1->put(key_1, val_1);
-    h1->put(key_2, val_2);
-    h1->put(key_3, val_3);
     Object** values_array;
     values_array = h1->values();
-    t_true(val_1 -> equals(keys_array[0]));
-    t_true(val_2 -> equals(keys_array[1]));
-    t_true(val_3 -> equals(keys_array[2]));
+    t_true(val_1 -> equals(values_array[0]));
+    t_true(val_2 -> equals(values_array[1]));
+    t_true(val_3 -> equals(values_array[2]));
     OK("9");
 }
 
@@ -171,6 +144,5 @@ int main() {
     test5();
     test6();
     test7();
-    test8();
     return 0;
 }
