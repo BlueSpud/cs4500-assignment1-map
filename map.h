@@ -2,10 +2,8 @@
 // Created by Jiawen Liu on 1/24/20.
 //
 
-#ifndef PART2_Map_H
-#define PART2_Map_H
-
-#endif //PART2_Map_H
+#ifndef MAP_H
+#define MAP_H
 
 #pragma once;
 #include "object.h"
@@ -14,7 +12,6 @@ class Map : public Object {
 public:
     /**
      * Default constructor that constructs an empty Map with
-     * the default initial capacity 16
     */
     Map();
 
@@ -34,7 +31,7 @@ public:
      * If the key is already associated with a value, the new value should overwrite the previous one
      * @return  val
      */
-    Object* put(Object* key, Object* val);
+    void put(Object* key, Object* val);
 
 
     /**
@@ -60,13 +57,6 @@ public:
      */
     Object* remove(Object* key);
 
-
-    /**
-     * @return  a list of the keys contained in this map
-     */
-    Object** key_set();
-
-
     /**
      * @return  a list of values contained in this map
      */
@@ -76,3 +66,4 @@ public:
 
     bool equals(Object* object);
 };
+#endif
