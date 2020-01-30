@@ -1,4 +1,4 @@
-#pragma once;
+#pragma once
 #include "map.h"
 #include "string.h"
 #include <iostream>
@@ -43,12 +43,18 @@ void mapStressTest() {
         t_true(getString->equals(valStr));
 
         // Test removeString
-        String* removedString = dynamic_cast<String*>(h1->get(keyStr));
+        String* removedString = dynamic_cast<String*>(h1->remove(keyStr));
         t_false(h1->contains_key(keyStr));
 
         delete removedString;
     }
 
     OK("Stress test complete");
+}
+
+int main() {
+
+    mapStressTest();
+    return 0;
 }
 

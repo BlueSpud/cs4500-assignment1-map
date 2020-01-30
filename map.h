@@ -87,7 +87,7 @@ public:
         }
 
         Entry* newEntry = new Entry(key, val);
-        _entrySet.push_back(entry);
+        _entrySet.push_back(newEntry);
         _put(newEntry);
         return;
     }
@@ -147,14 +147,10 @@ public:
         size_t bucketIndex = hash % _array.size();
 
         ArrayObject* bucketArr = dynamic_cast<ArrayObject*>(_array.get(bucketIndex));
-        if (bucketArr->size() == 1) {
-            return dynamic_cast<Entry*>(bucketArr->get(0));
-        } else {
-            for (int i = 0; i < bucketArr->size(); i++) {
-                Entry* entry = dynamic_cast<Entry*>(bucketArr->get(i));
-                if (entry->value->equals(key)) {
-                    return dynamic_cast<Entry*>(bucketArr->get(i));
-                }
+        for (int i = 0; i < bucketArr->size(); i++) {
+            Entry* entry = dynamic_cast<Entry*>(bucketArr->get(i));
+            if (entry->value->equals(key)) {
+                return dynamic_cast<Entry*>(bucketArr->get(i));
             }
         }
 
@@ -188,6 +184,7 @@ public:
             if (entry->key->equals(key)) {
                 bucketArr->remove(i);
                 value = entry->value;
+                break;
             }
         }
 
@@ -207,7 +204,9 @@ public:
     /**
      * @return  a list of values contained in this map
      */
-    Object** values();
+    Object** values() {
+        // TODO WAITING ON GROUP
+    }
 
     /**
      * Provides a hash value for this map
