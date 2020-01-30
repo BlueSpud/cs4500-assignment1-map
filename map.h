@@ -35,6 +35,10 @@ public:
     }
 };
 
+/**
+ * An implementation of map that will use the hash code of objects to sort them into buckets.
+ * If there are multiple elements in a bucket, equals() is used
+ */
 class Map : public Object {
 public:
 
@@ -78,13 +82,13 @@ public:
         Entry* entry = _getEntry(key);
         if (entry) {
             entry->value = val;
-            return val;
+            return;
         }
 
         Entry* newEntry = new Entry(key, val);
         _entrySet.push_back(entry);
         _put(newEntry);
-        return val;
+        return;
     }
 
     /**
@@ -111,6 +115,10 @@ public:
         }
     }
 
+    /**
+     * Puts the entry into the correct bucket. This does not add it to the entries array
+     * @param entry The entry to add into a bucket
+     */
     void _put(Entry* entry) {
         size_t bucketIndex = entry->hash % _array.size();
         ArrayObject* bucketArr = dynamic_cast<ArrayObject*>(_array.get(bucketIndex));
@@ -169,16 +177,30 @@ public:
         size_t hash = key->hash();
         size_t bucketIndex = hash % _array.size();
 
+        Object* value = nullptr;
+        Entry* entry = nullptr;
+        
+        // Delete the entry from the buckets
         ArrayObject* bucketArr = dynamic_cast<ArrayObject*>(_array.get(bucketIndex));
         for (int i = 0; i < bucketArr->size(); i++) {
-            Entry* entry = dynamic_cast<Entry*>(bucketArr->get(i));
+            entry = dynamic_cast<Entry*>(bucketArr->get(i));
             if (entry->key->equals(key)) {
                 bucketArr->remove(i);
-                return entry->value;
+                value = entry->value;
             }
         }
 
-        return nullptr;
+        // Delete the entry from the entry set
+        if (value) {
+            for (size_t i = 0; i < _entrySet.size(); i++) {
+                if (_entrySet.get(i) == entry) {
+                    _entrySet.remove(i);
+                    break;
+                }
+            }
+        }
+        
+        return value;
     }
 
     /**
@@ -186,6 +208,10 @@ public:
      */
     Object** values();
 
+    /**
+     * Provides a hash value for this map
+     * @return The hash value for this map
+     */
     size_t hash() {
         size_t hash = 0;
         for (size_t i = 0; i < _entrySet.size(); i++) {
@@ -194,8 +220,22 @@ public:
         return hash;
     }
 
+    /**
+     * Determines if this map is equal to another object. The object is equal if it is also a map
+     * and contains all the same values and keys and only those
+     * @param object The object to test equality against
+     * @return true if the object fits the above criteria, false otherwise
+     */
     bool equals(Object* object) {
-        return false;
+        Map* map = dynamic_cast<Map*>(object);
+        if (!map || map->get_size() != get_size()) { return false; }
+
+        for (size_t i = 0; i < _entrySet.size(); i++) {
+            Entry* entry = dynamic_cast<Entry*>(_entrySet.get(i));
+            Object* value = map->get(entry->key);
+            if (!value || !value->equals(entry)) { return false; }
+        }
+        return true;
     }
 };
 #endif
