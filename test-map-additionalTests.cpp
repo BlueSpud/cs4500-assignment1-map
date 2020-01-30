@@ -13,40 +13,26 @@ void t_false(bool p) { if (p) FAIL(); }
 void mapStressTest() {
     Map* h1 = new Map();
 
+    char buffer[100];
     for (int i = 0; i < _stressTestVal; i++) {
-        char *charKey = new char(6);
-        strcpy(charKey, "key");
-        charKey[4] = i;
-        charKey[5] = '\0';
-        String *keyStr = new String(charKey);
+        sprintf(buffer, "test%i", i);
+        String *keyStr = new String(buffer);
 
-        char *charVal = new char(6);
-        strcpy(charVal, "key");
-        charVal[4] = i;
-        charVal[5] = '\0';
-        String *valStr = new String(charVal);
+        sprintf(buffer, "test%i", i);
+        String *valStr = new String(buffer);
 
         // Test put
         h1->put(keyStr, valStr);
-
-        delete charKey;
-        delete charVal;
     }
 
     t_true(h1->get_size() == _stressTestVal);
 
     for (int i = 0; i < _stressTestVal; i++) {
-        char *charKey = new char(6);
-        strcpy(charKey, "key");
-        charKey[4] = i;
-        charKey[5] = '\0';
-        String *keyStr = new String(charKey);
+        sprintf(buffer, "test%i", i);
+        String *keyStr = new String(buffer);
 
-        char *charVal = new char(6);
-        strcpy(charVal, "key");
-        charVal[4] = i;
-        charVal[5] = '\0';
-        String *valStr = new String(charVal);
+        sprintf(buffer, "test%i", i);
+        String *valStr = new String(buffer);
 
         // Test contain
         t_true(h1->contains_key(keyStr));
@@ -59,9 +45,7 @@ void mapStressTest() {
         // Test removeString
         String* removedString = dynamic_cast<String*>(h1->get(keyStr));
         t_false(h1->contains_key(keyStr));
-        
-        delete charKey;
-        delete charVal;
+
         delete removedString;
     }
 
