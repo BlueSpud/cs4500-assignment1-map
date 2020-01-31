@@ -126,9 +126,10 @@ void test7() {
     h1->put(key_3, val_3);
     Object** values_array;
     values_array = h1->values();
-    t_true(val_1 -> equals(values_array[0]));
-    t_true(val_2 -> equals(values_array[1]));
-    t_true(val_3 -> equals(values_array[2]));
+    t_false(values_array == nullptr);
+    for (int i=0; i< 3; i++) {
+        t_true(val_1 -> equals(values_array[i]) || val_2 -> equals(values_array[i]) || val_3 -> equals(values_array[i]));
+    }
     OK("9");
 }
 
