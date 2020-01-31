@@ -7,7 +7,6 @@
 
 #pragma once;
 #include "../cs4500-assignment1-array/object.h"
-
 #include "../cs4500-assignment1-array/array.h"
 
 /**
@@ -149,8 +148,8 @@ public:
         ArrayObject* bucketArr = dynamic_cast<ArrayObject*>(_array.get(bucketIndex));
         for (int i = 0; i < bucketArr->size(); i++) {
             Entry* entry = dynamic_cast<Entry*>(bucketArr->get(i));
-            if (entry->value->equals(key)) {
-                return dynamic_cast<Entry*>(bucketArr->get(i));
+            if (entry->key->equals(key)) {
+                return entry;
             }
         }
 
@@ -205,7 +204,12 @@ public:
      * @return  a list of values contained in this map
      */
     Object** values() {
-        // TODO WAITING ON GROUP
+        Object** values = new Object*[_entrySet.size()];
+        for (size_t i = 0; i < _entrySet.size(); i++) {
+            values[i] = dynamic_cast<Entry*>(_entrySet.get(i))->value;
+        }
+
+        return values;
     }
 
     /**
